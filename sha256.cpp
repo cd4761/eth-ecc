@@ -15,7 +15,7 @@ This implementation uses little endian byte order.
 /*************************** HEADER FILES ***************************/
 
 #include <memory.h>
-#include "stdafx.h"
+// #include "stdafx.h"
 #include "sha256.h"
 
 /****************************** MACROS ******************************/

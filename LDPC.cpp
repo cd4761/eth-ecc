@@ -1,10 +1,11 @@
-#include "stdafx.h"
+// #include "stdafx.h"
 #include "LDPC.h"
 #include "Memory_Manage.h"
 #include "sha256.h"
 #include <vector>
 #include <cstdlib>      
-#include <algorithm>    
+#include <algorithm>   
+#include <stdio.h> 
 
 
 
@@ -206,7 +207,7 @@ void LDPC::print_word(const char name[], int type)
 	int *ptr = NULL;
 	FILE *fp;
 	if (name)
-		fopen_s(&fp, name, "w");
+		fopen(name, "w");
 	else
 		fp = stdout;
 
@@ -237,7 +238,7 @@ void LDPC::print_H(const char name[])
 {
 	FILE *fp;
 	if (name)
-		fopen_s(&fp, name, "w");
+		fopen(name, "w");
 	else
 		fp = stdout;
 	fprintf(fp, "The value of seed : %d\n", this->seed);
@@ -257,27 +258,27 @@ void LDPC::print_Q(const char name[], int type)
 {
 	FILE *fp;
 	if (name)
-		fopen_s(&fp, name, "w");
+		fopen(name, "w");
 	else
 		fp = stdout;
 	if (type == 1)
 	{
-		fprintf_s(fp, "\nThe row_in_col_matrix\n");
+		fprintf(fp, "\nThe row_in_col_matrix\n");
 		for (int i = 0; i < this->wc; i++)
 		{
 			for (int j = 0; j < this->n; j++)
-				fprintf_s(fp, "%d\t", this->row_in_col[i][j] + 1);
+				fprintf(fp, "%d\t", this->row_in_col[i][j] + 1);
 			fprintf(fp, "\n");
 		}
 	}
 	else if (type == 2)
 	{
-		fprintf_s(fp, "\nThe col_in_row_matrix\n");
+		fprintf(fp, "\nThe col_in_row_matrix\n");
 		for (int i = 0; i < this->wr; i++)
 		{
 			for (int j = 0; j < this->m; j++)
-				fprintf_s(fp, "%d\t", this->col_in_row[i][j] + 1);
-			fprintf_s(fp, "\n");
+				fprintf(fp, "%d\t", this->col_in_row[i][j] + 1);
+			fprintf(fp, "\n");
 		}
 	}
 	if (name)

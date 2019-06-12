@@ -1,5 +1,5 @@
 #pragma once
-#include "stdafx.h"
+// #include "stdafx.h"
 #include "Memory_Manage.h"
 #include <memory.h>
 #include <stdio.h>
