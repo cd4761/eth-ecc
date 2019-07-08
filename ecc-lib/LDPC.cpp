@@ -1,11 +1,24 @@
-// #include "stdafx.h"
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * File:   LDPC.cpp
+ * Author: root
+ *
+ * Created on June 21, 2019, 12:04 AM
+ */
+
 #include "LDPC.h"
+
 #include "Memory_Manage.h"
 #include "sha256.h"
 #include <vector>
-#include <cstdlib>      
-#include <algorithm>   
-#include <stdio.h> 
+#include <cstdlib>
+#include <algorithm>
+#include <random>
 
 
 
@@ -16,33 +29,33 @@ LDPC::LDPC()
 }
 LDPC::~LDPC()
 {
-	Delete_2D_Array((void**)this->H, this->m);
-	Delete_2D_Array((void**)this->col_in_row, this->wr);
-	Delete_2D_Array((void**)this->row_in_col, this->wc);
+	Delete_2D_Array(this->H, this->m);
+	Delete_2D_Array(this->col_in_row, this->wr);
+	Delete_2D_Array(this->row_in_col, this->wc);
 
-	Delete_2D_Array((void**)this->LRqtl, this->n);
-	Delete_2D_Array((void**)this->LRrtl, this->n);
-	Delete_1D_Array((void*)this->LRpt);
-	Delete_1D_Array((void*)this->LRft);
+	Delete_2D_Array(this->LRqtl, this->n);
+	Delete_2D_Array(this->LRrtl, this->n);
+	Delete_1D_Array(this->LRpt);
+	Delete_1D_Array(this->LRft);
 
-	Delete_1D_Array((void*)this->hash_vector);
-	Delete_1D_Array((void*)this->output_word);
+	Delete_1D_Array(this->hash_vector);
+	Delete_1D_Array(this->output_word);
 }
 
 void LDPC::decoding()
 {
 	double temp3, temp_sign, sign, magnitude;
 	int sum = 0;
-	memset(this->output_word, NULL, sizeof(int)*this->n);
-	
+	memset(this->output_word, 0, sizeof(int)*this->n);
+
 	// Initialization
 	for (int i = 0; i < this->n; i++)
 	{
-		memset(this->LRqtl[i], NULL, sizeof(double)*this->m);
-		memset(this->LRrtl[i], NULL, sizeof(double)*this->m);
+		memset(this->LRqtl[i], 0, sizeof(double)*this->m);
+		memset(this->LRrtl[i], 0, sizeof(double)*this->m);
 		this->LRft[i] = log((1 - this->cross_err) / (this->cross_err))*(double)(this->hash_vector[i] * 2 - 1);
 	}
-	memset(this->LRpt, NULL, sizeof(double)*this->n);
+	memset(this->LRpt, 0, sizeof(double)*this->n);
 
 	int i, k, l, m, ind, t, mp;
 	//Bit to Check Node Messages --> LRqtl
@@ -68,7 +81,7 @@ void LDPC::decoding()
 				temp3 = 0.0; sign = 1;
 				for (m = 0; m < this->wr; m++)
 				{
-					if (m != l) 
+					if (m != l)
 					{
 						temp3 = temp3 + func_f(fabs(this->LRqtl[this->col_in_row[m][k]][k]));
 						if (this->LRqtl[this->col_in_row[m][k]][k] > 0.0)
@@ -83,7 +96,7 @@ void LDPC::decoding()
 			}
 		}
 
-		//Update the priori-information		
+		//Update the priori-information
 		for (m = 0; m < this->n; m++)
 		{
 			this->LRpt[m] = infinity_test(this->LRft[m]);
@@ -113,15 +126,15 @@ int  LDPC::generate_seed(char phv[32])
 	return sum;
 }
 void LDPC::generate_hv(const unsigned char header_with_nonce[])
-{	
-	int input_size = strlen((char *)header_with_nonce);		
-	memset((void*)this->hash_vector, NULL, sizeof(unsigned char)*this->n);
-	memset((void*)this->tmp_hash_vector, NULL, sizeof(unsigned char)*32);
+{
+	int input_size = strlen((char *)header_with_nonce);
+	memset((void*)this->hash_vector, 0, sizeof(unsigned char)*this->n);
+	memset((void*)this->tmp_hash_vector, 0, sizeof(unsigned char)*32);
 
 	if (this->n <= 256)
 	{
 		SHA256_CTX ctx;
-		memset((void*)&ctx, NULL, sizeof(SHA256_CTX));
+		memset((void*)&ctx, 0, sizeof(SHA256_CTX));
 		sha256_init(&ctx);
 		sha256_update(&ctx, header_with_nonce, input_size);
 		sha256_final(&ctx, this->tmp_hash_vector);
@@ -136,7 +149,7 @@ void LDPC::generate_hv(const unsigned char header_with_nonce[])
 
 	/*
 	transform the constructed hexadecimal array into an binary arry
-	ex) FE01 => 11111110000 0001	
+	ex) FE01 => 11111110000 0001
 	*/
 	for (int i = 0; i < this->n / 8; i++)
 	{
@@ -168,9 +181,9 @@ bool LDPC::generate_H()
 		col_order.clear();
 		for (int j = 0; j <this->n; j++)
 			col_order.push_back(j);
-		std::srand(seed--);
+		std::srand((unsigned int)seed--);
 		std::random_shuffle(col_order.begin(), col_order.end());
-		
+
 		for (int j = 0; j <this->n; j++)
 		{
 			int index = (col_order.at(j) / this->wr + k * i);
@@ -182,9 +195,9 @@ bool LDPC::generate_H()
 bool LDPC::generate_Q()
 {
 	for (int i = 0; i < this->wr; i++)
-		memset(this->col_in_row[i], NULL, sizeof(int)*this->m);
+		memset(this->col_in_row[i], 0, sizeof(int)*this->m);
 	for (int i = 0; i < this->wc; i++)
-		memset(this->row_in_col[i], NULL, sizeof(int)*this->n);
+		memset(this->row_in_col[i], 0, sizeof(int)*this->n);
 
 	int row_index = 0, col_index = 0;
 	for (int i = 0; i < this->m; i++)
@@ -207,7 +220,7 @@ void LDPC::print_word(const char name[], int type)
 	int *ptr = NULL;
 	FILE *fp;
 	if (name)
-		fopen(name, "w");
+		fp = fopen(name, "w");
 	else
 		fp = stdout;
 
@@ -223,10 +236,10 @@ void LDPC::print_word(const char name[], int type)
 	}
 	else
 	{
-		fprintf(fp, "The second parameter of this function should be either 0 or 1\n");
+		fprintf(fp, "The second parameter of this function should be either 1 or 2\n");
 		return;
 	}
-	
+
 	while (i++ < this->n - 1)
 		fprintf(fp,"%d ", ptr[i]);
 	fprintf(fp,"\n");
@@ -238,19 +251,19 @@ void LDPC::print_H(const char name[])
 {
 	FILE *fp;
 	if (name)
-		fopen(name, "w");
+		fp = fopen(name, "w");
 	else
 		fp = stdout;
 	fprintf(fp, "The value of seed : %d\n", this->seed);
 	fprintf(fp, "The size of H is %d x %d with ", this->m, this->n);
 	fprintf(fp, "wc : %d and wr = %d\n", this->wc, this->wr);
-		
+
 	for (int i = 0; i < this->m; i++)
 	{
 		for (int j = 0; j < this->n; j++)
 			fprintf(fp,"%u\t", this->H[i][j]);
 		fprintf(fp,"\n");
-	}	
+	}
 	if (name)
 		fclose(fp);
 }
@@ -258,7 +271,7 @@ void LDPC::print_Q(const char name[], int type)
 {
 	FILE *fp;
 	if (name)
-		fopen(name, "w");
+		fp = fopen(name, "w");
 	else
 		fp = stdout;
 	if (type == 1)
@@ -323,17 +336,17 @@ bool LDPC::is_regular(int n, int wc, int wr)
 
 bool LDPC::initialization()
 {
-	Delete_2D_Array((void**)this->H, this->m);
-	Delete_2D_Array((void**)this->col_in_row, this->wr);
-	Delete_2D_Array((void**)this->row_in_col, this->wc);
-	
-	Delete_2D_Array((void**)this->LRqtl, this->n);
-	Delete_2D_Array((void**)this->LRrtl, this->n);
-	Delete_1D_Array((void*)this->LRpt);
-	Delete_1D_Array((void*)this->LRft);
+	Delete_2D_Array(this->H, this->m);
+	Delete_2D_Array(this->col_in_row, this->wr);
+	Delete_2D_Array(this->row_in_col, this->wc);
 
-	Delete_1D_Array((void*)this->hash_vector);
-	Delete_1D_Array((void*)this->output_word);
+	Delete_2D_Array(this->LRqtl, this->n);
+	Delete_2D_Array(this->LRrtl, this->n);
+	Delete_1D_Array(this->LRpt);
+	Delete_1D_Array(this->LRft);
+
+	Delete_1D_Array(this->hash_vector);
+	Delete_1D_Array(this->output_word);
 
 	this->H = Allocate_2D_Array_Int(this->m, this->n, "No sufficient memory for H");
 	this->col_in_row = Allocate_2D_Array_Int(this->wr, this->m, "No sufficient memory for Q1_col_in_row");
@@ -353,7 +366,7 @@ bool LDPC::initialization()
 }
 
 bool LDPC::decision()
-{	
+{
 	for (int i = 0; i < this->m; i++)
 	{
 		int sum = 0;
@@ -361,6 +374,6 @@ bool LDPC::decision()
 			sum = sum + this->output_word[this->col_in_row[j][i]];
 		if (sum % 2)
 			return false;
-	}	
+	}
 	return true;
 }

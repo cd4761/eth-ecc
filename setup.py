@@ -1,33 +1,32 @@
 import os
 from distutils.core import setup, Extension
+
 sources = [
-    'ETH-ECC.cpp',
-    'LDPC.cpp',
-    'sha256.cpp'
+    'ecc-lib/ETH-ECC.cpp',
+    'ecc-lib/LDPC.cpp',
+    'ecc-lib/sha256.cpp'
     ]
 
 depends = [
-    'LDPC.h',
-    'Memory_Manage.h',
-    'Def_List.h',
-    'cmath',
-    'string'
+    'ecc-lib/LDPC.h',
+    'ecc-lib/Memory_Manage.h',
+    'ecc-lib/Def_List.h'
 
 ]
-ecceth = Extension('ecceth',
+pyecceth = Extension('pyecceth',
                      sources=sources,
                      depends=depends,
-                     extra_compile_args=["-Isrc/", "-Wall"])
+                     extra_compile_args=["-Isrc/", "-std=c++11", "-Wall"])
 
 setup(
-    name='ecceth',
+    name='pyecceth',
     author="Jason Hwang",
     author_email="jason.h@onther.io",
     license='GPL',
-    version='0.1.23',
+    version='0.1.0',
     url='https://github.com/cd4761/ecceth',
     download_url='https://github.com/cd4761/ecceth/tarball/v23',
     description=('Python wrappers for eccpow, the ethereum proof of work'
                  'hashing function with LDPC'),
-    ext_modules=[ecceth],
+    ext_modules=[pyecceth],
 )
