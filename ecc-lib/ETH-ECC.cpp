@@ -50,7 +50,7 @@ eth_ecc(PyObject *self, PyObject *args){
 		printf("error for calling the initialization function");
 		return 0;
 	}
-    std::cout << previous_header;
+    
 	ptr->generate_seed(previous_header);
 	ptr->generate_H();
 	ptr->generate_Q();
@@ -135,25 +135,6 @@ PyMODINIT_FUNC PyInit_pyecceth(void) {
 PyMODINIT_FUNC
 initpyecceth(void) {
     PyObject *module = Py_InitModule("pyecceth", PyeccethMethods);
-//    PyModule_AddIntConstant(module, "ROW_SWAP", (long) ROW_SWAP);
-//    PyModule_AddIntConstant(module, "COLUMN_SWAP", (long) COLUMN_SWAP);
-//    PyModule_AddIntConstant(module, "BLOCK_LENGTH", (long) BLOCK_LENGTH);
-//    PyModule_AddIntConstant(module, "MESSAGE_LENGTH", (long) MESSAGE_LENGTH);
-//    PyModule_AddIntConstant(module, "REDUNDANCY_LENGTH", (long) REDUNDANCY_LENGTH);
-//    PyModule_AddIntConstant(module, "CODE_RATE", (long) CODE_RATE);
-//    PyModule_AddIntConstant(module, "COLUMN_DEGREE", (long) COLUMN_DEGREE);
-//    PyModule_AddIntConstant(module, "ROW_DEGREE", (long) ROW_DEGREE);
-//    PyModule_AddIntConstant(module, "FIELD_SIZE", (long) FIELD_SIZE);
-//    PyModule_AddIntConstant(module, "SEED", (long) SEED);
-//    PyModule_AddIntConstant(module, "CROSS_OVER_PROB", (long) CROSS_OVER_PROB);
-//    PyModule_AddIntConstant(module, "INPUT_WORD", (long) INPUT_WORD);
-//    PyModule_AddIntConstant(module, "OUTPUT_WORD", (long) OUTPUT_WORD);
-//    PyModule_AddIntConstant(module, "COLUMN_IN_ROW", (long) COLUMN_IN_ROW);
-//    PyModule_AddIntConstant(module, "ROW_IN_COLUMN", (long) ROW_IN_COLUMN);
-//    PyModule_AddIntConstant(module, "BIG_INFINITY", (long) BIG_INFINITY);
-//    PyModule_AddIntConstant(module, "ITERATIONS", (long) ITERATIONS);
-//    PyModule_AddIntConstant(module, "Inf", (long) Inf);
-//    PyModule_AddIntConstant(module, "MAX_BUFF_SIZE", (long) MAX_BUFF_SIZE);
 }
 #endif
 

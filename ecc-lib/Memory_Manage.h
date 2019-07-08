@@ -1,17 +1,39 @@
-#pragma once
-// #include "stdafx.h"
-#include "Memory_Manage.h"
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * File:   Memory_Manage.h
+ * Author: root
+ *
+ * Created on June 21, 2019, 12:05 AM
+ */
+
+#ifndef MEMORY_MANAGE_H
+#define MEMORY_MANAGE_H
+
+#include <memory.h>
+#include <stdio.h>
+
 #include <memory.h>
 #include <stdio.h>
 
 
-void *Delete_1D_Array(void *ptr)
+void *Delete_1D_Array(int *ptr)
 {
 	if (ptr)
-		delete ptr;
+		delete [] ptr;
 	return NULL;
 }
-void *Delete_2D_Array(void **ptr, int row)
+void *Delete_1D_Array(double *ptr)
+{
+	if (ptr)
+		delete [] ptr;
+	return NULL;
+}
+void *Delete_2D_Array(int **ptr, int row)
 {
 	if (ptr)
 	{
@@ -19,12 +41,28 @@ void *Delete_2D_Array(void **ptr, int row)
 		{
 			if (ptr[i])
 			{
-				delete ptr[i];
+				delete [] ptr[i];
 				ptr[i] = NULL;
 			}
 		}
-		//	printf("\n");
-		delete ptr;
+		delete [] ptr;
+	}
+	return NULL;
+}
+
+void *Delete_2D_Array(double **ptr, int row)
+{
+	if (ptr)
+	{
+		for (int i = 0; i < row; i++)
+		{
+			if (ptr[i])
+			{
+				delete [] ptr[i];
+				ptr[i] = NULL;
+			}
+		}
+		delete [] ptr;
 	}
 	return NULL;
 }
@@ -45,7 +83,7 @@ int** Allocate_2D_Array_Int(int row, int col, const char msg[])
 			fprintf(stderr, "%s\n", msg);
 			return NULL;
 		}
-		memset(ptr[i], NULL, sizeof(int)*col);
+		memset(ptr[i], 0, sizeof(int)*col);
 	}
 	return ptr;
 }
@@ -57,7 +95,7 @@ int*  Allocate_1D_Array_Int(int len, const char msg[])
 		fprintf(stderr, "%s\n", msg);
 		return NULL;
 	}
-	memset(ptr, NULL, sizeof(int)*len);
+	memset(ptr, 0, sizeof(int)*len);
 	return ptr;
 }
 
@@ -77,7 +115,7 @@ unsigned int** Allocate_2D_Array_UInt(int row, int col, const char msg[])
 			fprintf(stderr, "%s\n", msg);
 			return NULL;
 		}
-		memset(ptr[i], NULL, sizeof(unsigned int)*col);
+		memset(ptr[i], 0, sizeof(unsigned int)*col);
 	}
 	return ptr;
 }
@@ -89,7 +127,7 @@ unsigned int*  Allocate_1D_Array_UInt(int len, const char msg[])
 		fprintf(stderr, "%s\n", msg);
 		return NULL;
 	}
-	memset(ptr, NULL, sizeof(unsigned int)*len);
+	memset(ptr, 0, sizeof(unsigned int)*len);
 	return ptr;
 }
 
@@ -109,7 +147,7 @@ unsigned char** Allocate_2D_Array_UChar(int row, int col, const char msg[])
 			fprintf(stderr, "%s\n", msg);
 			return NULL;
 		}
-		memset(ptr[i], NULL, sizeof(unsigned char)*col);
+		memset(ptr[i], 0, sizeof(unsigned char)*col);
 	}
 	return ptr;
 }
@@ -121,7 +159,7 @@ unsigned char*  Allocate_1D_Array_UChar(int len, const char msg[])
 		fprintf(stderr, "%s\n", msg);
 		return NULL;
 	}
-	memset(ptr, NULL, sizeof(unsigned char)*len);
+	memset(ptr, 0, sizeof(unsigned char)*len);
 	return ptr;
 }
 
@@ -141,7 +179,7 @@ double** Allocate_2D_Array_Double(int row, int col, const char msg[])
 			fprintf(stderr, "%s\n", msg);
 			return NULL;
 		}
-		memset(ptr[i], NULL, sizeof(double)*col);
+		memset(ptr[i], 0, sizeof(double)*col);
 	}
 	return ptr;
 
@@ -154,6 +192,11 @@ double*  Allocate_1D_Array_Double(int len, const char msg[])
 		fprintf(stderr, "%s\n", msg);
 		return NULL;
 	}
-	memset(ptr, NULL, sizeof(double)* len);
+	memset(ptr, 0, sizeof(double)* len);
 	return ptr;
 }
+
+
+
+#endif /* MEMORY_MANAGE_H */
+
