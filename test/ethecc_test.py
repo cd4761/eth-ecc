@@ -1,4 +1,3 @@
-# import pyecceth
 import pyeccpow
 from random import randint
 import codecs
