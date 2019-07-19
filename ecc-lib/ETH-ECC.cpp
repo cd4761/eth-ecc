@@ -20,7 +20,7 @@
 #define PY_CONST_STRING_FORMAT "s"
 #endif
 
-#define MIX_WORDS (ecceth_MIX_BYTES/4)
+#define MIX_WORDS (eccpow_MIX_BYTES/4)
 
 static PyObject *
 eth_ecc(PyObject *self, PyObject *args){
@@ -29,11 +29,11 @@ eth_ecc(PyObject *self, PyObject *args){
   char *previous_header;
   unsigned long block_number;
   unsigned long nonce;
-  int previous_header_size, current_header_size, wc, wr, difficulty_level;
+  int previous_header_size, current_header_size, wc, wr, difficulty_level, mix_value;
 
   if (!PyArg_ParseTuple(args, PY_STRING_FORMAT PY_STRING_FORMAT "i" "i" "i" , &previous_header, &previous_header_size, &current_header, &current_header_size, &difficulty_level, &wc, &wr))
       return 0;
-      
+
 
 //   if (current_header_size != 32) {
 //         char error_message[1024];
@@ -50,7 +50,7 @@ eth_ecc(PyObject *self, PyObject *args){
 		printf("error for calling the initialization function");
 		return 0;
 	}
-    
+
 	ptr->generate_seed(previous_header);
 	ptr->generate_H();
 	ptr->generate_Q();
@@ -81,16 +81,18 @@ eth_ecc(PyObject *self, PyObject *args){
 		}
 		nonce++;
   }
-    ptr->print_word(NULL, 1);
+    mix_value = ptr->print_word(NULL, 1);
 	ptr->print_word(NULL, 2);
 	delete ptr;
 
-	return Py_BuildValue("{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}",
-                         "result", nonce, 32);
+
+	return Py_BuildValue("{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}","{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}",
+                         "nonce", nonce, 8,
+                         "mix digest", mix_value, 32);
 }
 
 
-static PyMethodDef PyeccethMethods[] =
+static PyMethodDef PyeccpowMethods[] =
     {
         {"eth_ecc", eth_ecc, METH_VARARGS,
             "eth_ecc(previous_header, current_header, difficulty_level, wc, wr)\n\n"
@@ -99,16 +101,16 @@ static PyMethodDef PyeccethMethods[] =
     };
 
 #if PY_MAJOR_VERSION >= 3
-static struct PyModuleDef PyeccethModule = {
+static struct PyModuleDef PyeccpowModule = {
     PyModuleDef_HEAD_INIT,
-    "pyecceth",
+    "pyeccpow",
     "...",
     -1,
-    PyeccethMethods
+    PyeccpowMethods
 };
 
-PyMODINIT_FUNC PyInit_pyecceth(void) {
-    PyObject *module =  PyModule_Create(&PyeccethModule);
+PyMODINIT_FUNC PyInit_pyeccpow(void) {
+    PyObject *module =  PyModule_Create(&PyeccpowModule);
 //    PyModule_AddIntConstant(module, "ROW_SWAP", (long) ROW_SWAP);
 //    PyModule_AddIntConstant(module, "COLUMN_SWAP", (long) COLUMN_SWAP);
 //    PyModule_AddIntConstant(module, "BLOCK_LENGTH", (long) BLOCK_LENGTH);
@@ -133,8 +135,8 @@ PyMODINIT_FUNC PyInit_pyecceth(void) {
 }
 #else
 PyMODINIT_FUNC
-initpyecceth(void) {
-    PyObject *module = Py_InitModule("pyecceth", PyeccethMethods);
+initpyeccpow(void) {
+    PyObject *module = Py_InitModule("pyeccpow", PyeccpowMethods);
 }
 #endif
 

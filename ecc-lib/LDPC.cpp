@@ -19,6 +19,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <random>
+#include <math.h>
 
 
 
@@ -214,9 +215,10 @@ bool LDPC::generate_Q()
 	return true;
 }
 
-void LDPC::print_word(const char name[], int type)
+int LDPC::print_word(const char name[], int type)
 {
 	int i = -1;
+	int return_value = 0;
 	int *ptr = NULL;
 	FILE *fp;
 	if (name)
@@ -227,26 +229,26 @@ void LDPC::print_word(const char name[], int type)
 	if (type == 1)
 	{
 		ptr = this->hash_vector;
-		fprintf(fp, "A hash vector\n");
 	}
 	else if (type == 2)
 	{
 		ptr = this->output_word;
-		fprintf(fp, "An output vector\n");
+//		fprintf(fp, "An output vector\n");
 	}
 	else
 	{
 		fprintf(fp, "The second parameter of this function should be either 1 or 2\n");
-		return;
+		return 0;
 	}
 
-	while (i++ < this->n - 1)
-		fprintf(fp,"%d ", ptr[i]);
-	fprintf(fp,"\n");
+//	while (i++ < this->n - 1)
+//		fprintf(fp,"%d ", ptr[i]);
+//	fprintf(fp,"\n");
 
 	if (name)
 		fclose(fp);
 }
+
 void LDPC::print_H(const char name[])
 {
 	FILE *fp;
