@@ -55,9 +55,9 @@ eth_ecc(PyObject *self, PyObject *args){
 	ptr->generate_H();
 	ptr->generate_Q();
 
-    ptr->print_H("H2.txt");
-	ptr->print_Q(NULL, 1);
-	ptr->print_Q(NULL, 2);
+//    ptr->print_H("H2.txt");
+//	ptr->print_Q(NULL, 1);
+//	ptr->print_Q(NULL, 2);
 
   std::string current_block_header = current_header;
 
