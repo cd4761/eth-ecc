@@ -254,6 +254,7 @@ int LDPC::print_word(const char name[], int type)
 //		decimal = (int)this->tmp_hash_vector[i];
 //		fprintf(fp, "%d", tmp_hash_vector[i]);
 //    }
+    std::cout << "mix_value : " << (void*)tmp_hash_vector << '\n';
 
 	while (i++ < this->n - 1){
 		fprintf(fp,"%d ", ptr[i]);

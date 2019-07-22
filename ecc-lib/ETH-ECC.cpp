@@ -86,8 +86,9 @@ eth_ecc(PyObject *self, PyObject *args){
     mix_value = ptr->print_word(NULL, 1);
 	int a = ptr->print_word(NULL, 2);
 	delete ptr;
-	std::cout << "mix_value : " << mix_value << '\n';
+//	std::cout << "mix_value : " << (void*)tmp_hash_vector << '\n';
 	std::cout << "nonce : " << nonce << '\n';
+
 
 
 	return Py_BuildValue("{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}","{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}",
