@@ -82,7 +82,7 @@ eth_ecc(PyObject *self, PyObject *args){
 		nonce++;
   }
     mix_value = ptr->print_word(NULL, 1);
-	ptr->print_word(NULL, 2);
+	int a = ptr->print_word(NULL, 2);
 	delete ptr;
 
 

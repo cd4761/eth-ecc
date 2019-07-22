@@ -218,7 +218,6 @@ bool LDPC::generate_Q()
 int LDPC::print_word(const char name[], int type)
 {
 	int i = -1;
-	int return_value = 0;
 	int *ptr = NULL;
 	FILE *fp;
 	if (name)
@@ -229,17 +228,15 @@ int LDPC::print_word(const char name[], int type)
 	if (type == 1)
 	{
 		ptr = this->hash_vector;
-		for (int k = 0; k < this->n-1; k++){
+//		for (int k = 0; k < this->n-1; k++){
 //		    return_value = return_value + ptr[n-k] * pow(2, k);
-		    return_value = ptr[k];
-		}
+//		    return_value = ptr[k];
+//		}
 		fprintf(fp, "A hash vector\n");
-
-		return return_value;
 	}
 	else if (type == 2)
 	{
-		ptr = this->output_word;
+	    ptr = this->output_word;
 		fprintf(fp, "An output vector\n");
 	}
 	else
@@ -248,12 +245,19 @@ int LDPC::print_word(const char name[], int type)
 		return 0;
 	}
 
-	while (i++ < this->n - 1)
+	int decimal = 0;
+	while (i++ < this->n - 1){
 		fprintf(fp,"%d ", ptr[i]);
+		decimal += ptr[i] * pow(2,n - 1 - i);
+	}
 	fprintf(fp,"\n");
+
 
 	if (name)
 		fclose(fp);
+//	std::cout << "binary vector to decimal : " << decimal << '\n';
+
+	return decimal;
 }
 
 void LDPC::print_H(const char name[])
