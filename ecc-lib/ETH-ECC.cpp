@@ -7,6 +7,7 @@
 #include <string>
 #include <iostream>
 #include "Def_List.h"
+#include <iostream>
 // #include "targetver.h"
 
 #include <stdio.h>
@@ -85,11 +86,13 @@ eth_ecc(PyObject *self, PyObject *args){
     mix_value = ptr->print_word(NULL, 1);
 	int a = ptr->print_word(NULL, 2);
 	delete ptr;
+	std::cout << "mix_value : " << mix_value << '\n';
+	std::cout << "nonce : " << nonce << '\n';
 
 
 	return Py_BuildValue("{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}","{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}",
                          "nonce", nonce, 8,
-                         "mix digest", mix_value, 32);
+                         "mix digest", mix_value, 8);
 }
 
 
