@@ -39,7 +39,7 @@ public:
 	void print_H(const char name[]);
 	void print_Q(const char name[], int type);
 	int print_word(const char name[], int type);
-	int get_value(const char name[], int type);
+	unsigned char *get_hash();
 
 
 

@@ -231,12 +231,6 @@ int LDPC::print_word(const char name[], int type)
 	{
 		ptr = this->hash_vector;
 		fprintf(fp, "A hash vector\n");
-
-//		for (int i = 0; i < this->n / 8; i++)
-//	    {
-//		    decimal = (int)this->tmp_hash_vector[i];
-//		    fprintf(fp, "%d", tmp_hash_vector[i]);
-//        }
 	}
 	else if (type == 2)
 	{
@@ -254,7 +248,7 @@ int LDPC::print_word(const char name[], int type)
 //		decimal = (int)this->tmp_hash_vector[i];
 //		fprintf(fp, "%d", tmp_hash_vector[i]);
 //    }
-    std::cout << "mix_value : " << (void*)tmp_hash_vector << '\n';
+    std::cout << "mix_value : " << (int*)tmp_hash_vector << '\n';
 
 	while (i++ < this->n - 1){
 		fprintf(fp,"%d ", ptr[i]);
@@ -268,6 +262,10 @@ int LDPC::print_word(const char name[], int type)
 	std::cout << "binary vector to decimal : " << decimal << '\n';
 
 	return decimal;
+}
+
+unsigned char *LDPC::get_hash(){
+    return tmp_hash_vector;
 }
 
 void LDPC::print_H(const char name[])
