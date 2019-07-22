@@ -9,6 +9,6 @@ def test():
     ph = b'abd255dff722ddddffff3ffffd3'
     ch = b'1fdf2sffc2233ff'
     result = pyeccpow.eth_ecc(ph, ch, 12, 3, 6)
-    print(result)
+    # print(result)
 
 test()

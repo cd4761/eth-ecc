@@ -228,10 +228,7 @@ int LDPC::print_word(const char name[], int type)
 	if (type == 1)
 	{
 		ptr = this->hash_vector;
-//		for (int k = 0; k < this->n-1; k++){
-//		    return_value = return_value + ptr[n-k] * pow(2, k);
-//		    return_value = ptr[k];
-//		}
+
 		fprintf(fp, "A hash vector\n");
 	}
 	else if (type == 2)
@@ -244,12 +241,17 @@ int LDPC::print_word(const char name[], int type)
 		fprintf(fp, "The second parameter of this function should be either 1 or 2\n");
 		return 0;
 	}
-
 	int decimal = 0;
-	while (i++ < this->n - 1){
-		fprintf(fp,"%d ", ptr[i]);
-		decimal += ptr[i] * pow(2,n - 1 - i);
-	}
+	for (int i = 0; i < this->n / 8; i++)
+	{
+		decimal = (int)this->tmp_hash_vector[i];
+		fprintf(fp, "%d", tmp_hash_vector[i]);
+    }
+//	int decimal = 0;
+//	while (i++ < this->n - 1){
+//		fprintf(fp,"%d ", ptr[i]);
+//		decimal += ptr[i] * pow(2,n - 1 - i);
+//	}
 	fprintf(fp,"\n");
 
 
