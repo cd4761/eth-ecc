@@ -20,6 +20,7 @@
 #include <algorithm>
 #include <random>
 #include <math.h>
+#include <iostream>
 
 
 
@@ -203,6 +204,7 @@ bool LDPC::generate_Q()
 	int row_index = 0, col_index = 0;
 	for (int i = 0; i < this->m; i++)
 	{
+
 		for (int j = 0; j < this->n; j++)
 		{
 			if (this->H[i][j])
@@ -219,7 +221,6 @@ int LDPC::print_word(const char name[], int type)
 {
 	int i = -1;
 	int *ptr = NULL;
-	int decimal = 0;
 	FILE *fp;
 	if (name)
 		fp = fopen(name, "w");
@@ -231,11 +232,11 @@ int LDPC::print_word(const char name[], int type)
 		ptr = this->hash_vector;
 		fprintf(fp, "A hash vector\n");
 
-		for (int i = 0; i < this->n / 8; i++)
-	    {
-		    decimal = (int)this->tmp_hash_vector[i];
+//		for (int i = 0; i < this->n / 8; i++)
+//	    {
+//		    decimal = (int)this->tmp_hash_vector[i];
 //		    fprintf(fp, "%d", tmp_hash_vector[i]);
-        }
+//        }
 	}
 	else if (type == 2)
 	{
@@ -245,16 +246,25 @@ int LDPC::print_word(const char name[], int type)
 	else
 	{
 		fprintf(fp, "The second parameter of this function should be either 1 or 2\n");
-		return 0;
+//		return 0;
 	}
+	int decimal = 0;
+//	for (int i = 0; i < this->n / 8; i++)
+//	{
+//		decimal = (int)this->tmp_hash_vector[i];
+//		fprintf(fp, "%d", tmp_hash_vector[i]);
+//    }
 
 	while (i++ < this->n - 1){
 		fprintf(fp,"%d ", ptr[i]);
+		decimal += ptr[i] * pow(2,n - 1 - i);
 	}
 	fprintf(fp,"\n");
 
+
 	if (name)
 		fclose(fp);
+	std::cout << "binary vector to decimal : " << decimal << '\n';
 
 	return decimal;
 }
