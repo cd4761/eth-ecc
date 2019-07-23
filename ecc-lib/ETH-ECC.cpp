@@ -93,7 +93,7 @@ eth_ecc(PyObject *self, PyObject *args){
     mix_hash = (ethash_h256_t*)ptr->get_hash();
     std::cout << "mix_value : " << mix_hash << '\n';
 
-	return Py_BuildValue("{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}","{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}",
+	return Py_BuildValue("{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "," PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}",
                          "nonce", nonce, 8);
 //                         "mix digest", mix_hash, 32);
 }
