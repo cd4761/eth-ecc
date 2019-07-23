@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Def_List.h"
 #include <iostream>
+#include "ethash.h"
 // #include "targetver.h"
 
 #include <stdio.h>
@@ -30,7 +31,7 @@ eth_ecc(PyObject *self, PyObject *args){
   char *previous_header;
   unsigned long block_number;
   unsigned long nonce;
-  char *mix_hash;
+//  char *mix_hash;
   int previous_header_size, current_header_size, wc, wr, difficulty_level, mix_value;
 
   if (!PyArg_ParseTuple(args, PY_STRING_FORMAT PY_STRING_FORMAT "i" "i" "i" , &previous_header, &previous_header_size, &current_header, &current_header_size, &difficulty_level, &wc, &wr))
@@ -83,18 +84,18 @@ eth_ecc(PyObject *self, PyObject *args){
 		}
 		nonce++;
   }
-
     mix_value = ptr->print_word(NULL, 1);
 	int a = ptr->print_word(NULL, 2);
 	delete ptr;
-//	std::cout << "mix_value : " << (void*)tmp_hash_vector << '\n';
-	std::cout << "nonce : " << nonce << '\n';
-    mix_hash = (char*)ptr->get_hash();
+
+    ethash_h256_t const* mix_hash;
+
+    mix_hash = (ethash_h256_t*)ptr->get_hash();
     std::cout << "mix_value : " << mix_hash << '\n';
 
 	return Py_BuildValue("{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}","{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}",
-                         "nonce", nonce, 8,
-                         "mix digest", mix_hash, 32);
+                         "nonce", nonce, 8);
+//                         "mix digest", mix_hash, 32);
 }
 
 
