@@ -247,7 +247,7 @@ int LDPC::print_word(const char name[], int type)
 //		fprintf(fp,"%d ", ptr[i]);
 		decimal += ptr[i] * pow(2,n - 1 - i);
 	}
-	fprintf(fp,"\n");
+//	fprintf(fp,"\n");
 
 
 	if (name)

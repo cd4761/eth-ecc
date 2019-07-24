@@ -79,7 +79,7 @@ eth_ecc(PyObject *self, PyObject *args){
 		}
 		if (flag)
 		{
-			printf("codeword is founded with nonce = %lu\n", nonce);
+//			printf("codeword is founded with nonce = %lu\n", nonce);
 			break;
 		}
 		nonce++;
@@ -89,11 +89,12 @@ eth_ecc(PyObject *self, PyObject *args){
 	delete ptr;
 
 //    ethash_h256_t const* mix_hash = "0x0000000000000000000000000000000000000000000000000000000000000000";
-    const char zerohash[32] = "0000000000000000000000000000000";
+//    const char zerohash[32] = "0000000000000000000000000000000";
+    const char zerohash[67] = "0x0000000000000000000000000000000000000000000000000000000000000000";
     ethash_h256_t const* mix_hash = (ethash_h256_t*)zerohash;
 
 //    mix_hash = (ethash_h256_t*)ptr->get_hash();
-    std::cout << "mix_value : " << mix_hash << '\n';
+//    std::cout << "mix_value : " << mix_hash << '\n';
 
 	return Py_BuildValue("{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "," PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}",
                          "result", nonce, 8,
