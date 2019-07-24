@@ -90,8 +90,8 @@ eth_ecc(PyObject *self, PyObject *args){
 
 //    ethash_h256_t const* mix_hash = "0x0000000000000000000000000000000000000000000000000000000000000000";
 //    const char zerohash[32] = "0000000000000000000000000000000";
-    const char zerohash[5] = "0x00";
-    ethash_h256_t const* mix_hash = (ethash_h256_t*)zerohash;
+    const char mix_hash[5] = "0x00";
+//    ethash_h256_t const* mix_hash = (ethash_h256_t*)zerohash;
 
 //    mix_hash = (ethash_h256_t*)ptr->get_hash();
 //    std::cout << "mix_value : " << mix_hash << '\n';
