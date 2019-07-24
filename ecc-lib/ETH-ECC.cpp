@@ -99,7 +99,7 @@ eth_ecc(PyObject *self, PyObject *args){
 
 	return Py_BuildValue("{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "," PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}",
                          "result", nonce, 8,
-                         "mix digest", mix_hash, 8);
+                         "mix digest", mix_hash, 5);
 }
 
 
