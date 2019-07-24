@@ -230,28 +230,21 @@ int LDPC::print_word(const char name[], int type)
 	if (type == 1)
 	{
 		ptr = this->hash_vector;
-		fprintf(fp, "A hash vector\n");
+//		fprintf(fp, "A hash vector\n");
 	}
 	else if (type == 2)
 	{
 	    ptr = this->output_word;
-		fprintf(fp, "An output vector\n");
+//		fprintf(fp, "An output vector\n");
 	}
 	else
 	{
 		fprintf(fp, "The second parameter of this function should be either 1 or 2\n");
-//		return 0;
 	}
 	int decimal = 0;
-//	for (int i = 0; i < this->n / 8; i++)
-//	{
-//		decimal = (int)this->tmp_hash_vector[i];
-//		fprintf(fp, "%d", tmp_hash_vector[i]);
-//    }
-    std::cout << "mix_value : " << (int*)tmp_hash_vector << '\n';
 
 	while (i++ < this->n - 1){
-		fprintf(fp,"%d ", ptr[i]);
+//		fprintf(fp,"%d ", ptr[i]);
 		decimal += ptr[i] * pow(2,n - 1 - i);
 	}
 	fprintf(fp,"\n");
@@ -259,7 +252,7 @@ int LDPC::print_word(const char name[], int type)
 
 	if (name)
 		fclose(fp);
-	std::cout << "binary vector to decimal : " << decimal << '\n';
+//	std::cout << "binary vector to decimal : " << decimal << '\n';
 
 	return decimal;
 }
