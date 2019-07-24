@@ -88,13 +88,8 @@ eth_ecc(PyObject *self, PyObject *args){
 	int a = ptr->print_word(NULL, 2);
 	delete ptr;
 
-//    ethash_h256_t const* mix_hash = "0x0000000000000000000000000000000000000000000000000000000000000000";
-//    const char zerohash[32] = "0000000000000000000000000000000";
-    const char zerohash[5] = "0000";
+    const char zerohash[33] = "00000000000000000000000000000000";
 
-//    const char zerohash[5] = "0x0000000000000000000000000000000000000000000000000000000000000000";
-//    int zerohash = '0x000';
-//    const char zerohash[5] = "0x00";
     ethash_h256_t const* mix_hash = (ethash_h256_t*)zerohash;
 
 //    mix_hash = (ethash_h256_t*)ptr->get_hash();
@@ -102,7 +97,7 @@ eth_ecc(PyObject *self, PyObject *args){
 
 	return Py_BuildValue("{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "," PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}",
                          "result", nonce, 8,
-                         "mix digest", mix_hash, 4);
+                         "mix digest", mix_hash, 32);
 }
 
 
