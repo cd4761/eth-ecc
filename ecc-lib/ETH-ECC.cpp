@@ -31,19 +31,18 @@ eth_ecc(PyObject *self, PyObject *args){
   char *previous_header;
   unsigned long block_number;
   unsigned long nonce;
-//  char *mix_hash;
+
   int previous_header_size, current_header_size, wc, wr, difficulty_level, mix_value;
 
   if (!PyArg_ParseTuple(args, PY_STRING_FORMAT PY_STRING_FORMAT "i" "i" "i" , &previous_header, &previous_header_size, &current_header, &current_header_size, &difficulty_level, &wc, &wr))
       return 0;
 
-
-//   if (current_header_size != 32) {
-//         char error_message[1024];
-//         sprintf(error_message, "Seed must be 32 bytes long (was %i)", current_header_size);
-//         PyErr_SetString(PyExc_ValueError, error_message);
-//         return 0;
-//   }
+   if (current_header_size != 32) {
+         char error_message[1024];
+         sprintf(error_message, "Seed must be 32 bytes long (was %i)", current_header_size);
+         PyErr_SetString(PyExc_ValueError, error_message);
+         return 0;
+   }
 
     LDPC *ptr = new LDPC;
 
@@ -57,10 +56,6 @@ eth_ecc(PyObject *self, PyObject *args){
 	ptr->generate_seed(previous_header);
 	ptr->generate_H();
 	ptr->generate_Q();
-
-//    ptr->print_H("H2.txt");
-//	ptr->print_Q(NULL, 1);
-//	ptr->print_Q(NULL, 2);
 
   std::string current_block_header = current_header;
 
@@ -79,7 +74,6 @@ eth_ecc(PyObject *self, PyObject *args){
 		}
 		if (flag)
 		{
-//			printf("codeword is founded with nonce = %lu\n", nonce);
 			break;
 		}
 		nonce++;
@@ -89,11 +83,7 @@ eth_ecc(PyObject *self, PyObject *args){
 	delete ptr;
 
     const char zerohash[33] = "00000000000000000000000000000000";
-
     ethash_h256_t const* mix_hash = (ethash_h256_t*)zerohash;
-
-//    mix_hash = (ethash_h256_t*)ptr->get_hash();
-//    std::cout << "mix_value : " << mix_hash << '\n';
 
 	return Py_BuildValue("{" PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "," PY_CONST_STRING_FORMAT ":" PY_STRING_FORMAT "}",
                          "result", nonce, 8,
