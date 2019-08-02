@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef ECCPOW_H
-#define ECCPOW_H
+//#ifndef ECCPOW_H
+//#define ECCPOW_H
 
 #include "ethash.h"
 
@@ -37,4 +37,4 @@ ethash_return_value_t compute_ldpc(char *prev_hash, char *cur_hash, int n, int w
 }
 #endif
 
-#endif
+

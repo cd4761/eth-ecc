@@ -12,12 +12,14 @@ ethash_return_value_t compute_ldpc(char *prev_hash, char *cur_hash, int n, int w
 	uint64_t nonce = 0;
 
 	LDPC *ptr = new LDPC;
+	ethash_return_value_t ret;
 
 	ptr->set_difficulty(n,wc,wr);				//2 => n = 64, wc = 3, wr = 6,
 	if (!ptr->initialization())
 	{
 		printf("error for calling the initialization function");
-		return 0;
+		ret.success = false;
+		return ret;
 	}
 
 	ptr->generate_seed(prev_hash);
@@ -44,11 +46,11 @@ ethash_return_value_t compute_ldpc(char *prev_hash, char *cur_hash, int n, int w
 		nonce++;
 	}
 	delete ptr;
-	ethash_return_value_t ret;
 
-	const char zerohash[33] = "00000000000000000000000000000000";
+
+//	const char zerohash[33] = "00000000000000000000000000000000";
 //    ethash_h256_t const* mix_hash = (ethash_h256_t*)zerohash;
-    ret.mix_hash = (ethash_h256_t*)zerohash;
+//    ret.mix_hash = (ethash_h256_t*)zerohash;
     ret.nonce = nonce;
     ret.success = true;
 

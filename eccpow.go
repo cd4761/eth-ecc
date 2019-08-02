@@ -94,9 +94,9 @@ func Search(prev_hash []byte, cur_hash []byte, n uint, wc uint, wr uint) (nonce 
 
 	// TODO: disagrees with the spec https://github.comOnther-Tech/wiki/wiki/Ethash#mining
 	if ret.success {
-		mixDigest = C.GoBytes(unsafe.Pointer(&ret.mix_hash), C.int(32))
+		//mixDigest = C.GoBytes(unsafe.Pointer(&ret.mix_hash), C.int(32))
 		atomic.AddInt32(&pow.hashRate, -previousHashrate)
-		return nonce, mixDigest
+		return nonce
 	}
 }
 
