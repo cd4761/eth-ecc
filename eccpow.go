@@ -1,7 +1,8 @@
 package ECCPOW_LDPC
 
-//#include "ecc-lib/eccpow.cpp"
+//#include "ecc-lib/eccpow.h"
 import "C"
+import "unsafe"
 
 import (
 	"github.com/Onther-Tech/go-ethereum/common"
