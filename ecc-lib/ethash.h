@@ -62,7 +62,7 @@ typedef struct ethash_full* ethash_full_t;
 typedef int(*ethash_callback_t)(unsigned);
 
 typedef struct ethash_return_value {
-	ethash_h256_t result;
+	uint64_t nonce;
 	ethash_h256_t mix_hash;
 	bool success;
 } ethash_return_value_t;

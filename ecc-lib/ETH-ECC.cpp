@@ -34,7 +34,8 @@ eth_ecc(PyObject *self, PyObject *args){
 
   int previous_header_size, current_header_size, wc, wr, difficulty_level, mix_value;
 
-  if (!PyArg_ParseTuple(args, PY_STRING_FORMAT PY_STRING_FORMAT "i" "i" "i" , &previous_header, &previous_header_size, &current_header, &current_header_size, &difficulty_level, &wc, &wr))
+  if (!PyArg_ParseTuple(args, PY_STRING_FORMAT PY_STRING_FORMAT "i" "i" "i",
+  &previous_header, &previous_header_size, &current_header, &current_header_size, &difficulty_level, &wc, &wr))
       return 0;
 
    if (current_header_size != 32) {
