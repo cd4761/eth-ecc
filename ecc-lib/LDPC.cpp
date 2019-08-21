@@ -204,7 +204,6 @@ bool LDPC::generate_Q()
 	int row_index = 0, col_index = 0;
 	for (int i = 0; i < this->m; i++)
 	{
-
 		for (int j = 0; j < this->n; j++)
 		{
 			if (this->H[i][j])

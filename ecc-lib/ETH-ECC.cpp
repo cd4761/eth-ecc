@@ -58,6 +58,10 @@ eth_ecc(PyObject *self, PyObject *args){
 	ptr->generate_H();
 	ptr->generate_Q();
 
+	ptr->print_H("H2.txt");
+    ptr->print_Q(NULL, 1);
+    ptr->print_Q(NULL, 2);
+
   std::string current_block_header = current_header;
 
   while(1)
@@ -79,8 +83,8 @@ eth_ecc(PyObject *self, PyObject *args){
 		}
 		nonce++;
   }
-    mix_value = ptr->print_word(NULL, 1);
-	int a = ptr->print_word(NULL, 2);
+    ptr->print_word(NULL, 1);
+    ptr->print_word(NULL, 2);
 	delete ptr;
 
     const char zerohash[33] = "00000000000000000000000000000000";

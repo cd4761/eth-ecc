@@ -3,7 +3,7 @@
 
 //#include "stdafx.h"
 #include "LDPC.h"
-#include "ethash.h"
+#include "eccpow.h"
 #include <string>
 using namespace std;
 
@@ -53,7 +53,6 @@ ethash_return_value_t compute_ldpc(char *prev_hash, char *cur_hash, int n, int w
 //    ret.mix_hash = (ethash_h256_t*)zerohash;
     ret.nonce = nonce;
     ret.success = true;
-
 
 	return ret;
 }
