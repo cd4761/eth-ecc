@@ -306,32 +306,33 @@ void LDPC::print_Q(const char name[], int type)
 				fprintf(fp, "%d\t", this->col_in_row[i][j] + 1);
 			fprintf(fp, "\n");
 		}
-	}
-	fprintf(fp, "\n LRrtl\n");
-	for (int i = 0; i < this->n; i++)
-    {
-        for (int j = 0; j < this->m; j++)
-            fprintf(fp, "%d\t", this->LRrtl[i][j] + 1);
+
+        fprintf(fp, "\n LRrtl\n");
+        for (int i = 0; i < this->n; i++)
+        {
+            for (int j = 0; j < this->m; j++)
+                fprintf(fp, "%d\t", this->LRrtl[i][j] + 1);
+            fprintf(fp, "\n");
+        }
+
+        fprintf(fp, "\n LRqtl\n");
+        for (int i = 0; i < this->n; i++)
+        {
+            for (int j = 0; j < this->m; j++)
+                fprintf(fp, "%d\t", this->LRqtl[i][j] + 1);
+            fprintf(fp, "\n");
+        }
+
+        fprintf(fp, "\n LRpt\n");
+        for (int j = 0; j < this->n; j++)
+            fprintf(fp, "%d\t", this->LRpt[j] + 1);
+        fprintf(fp, "\n");
+
+        fprintf(fp, "\n LRqt\n");
+        for (int j = 0; j < this->n; j++)
+            fprintf(fp, "%d\t", this->LRft[j] + 1);
         fprintf(fp, "\n");
     }
-
-    fprintf(fp, "\n LRqtl\n");
-    for (int i = 0; i < this->n; i++)
-    {
-        for (int j = 0; j < this->m; j++)
-            fprintf(fp, "%d\t", this->LRqtl[i][j] + 1);
-        fprintf(fp, "\n");
-    }
-
-    fprintf(fp, "\n LRpt\n");
-    for (int j = 0; j < this->n; j++)
-        fprintf(fp, "%d\t", this->LRpt[j] + 1);
-    fprintf(fp, "\n");
-
-    fprintf(fp, "\n LRqt\n");
-    for (int j = 0; j < this->n; j++)
-        fprintf(fp, "%d\t", this->LRft[j] + 1);
-    fprintf(fp, "\n");
 
 	if (name)
 		fclose(fp);
