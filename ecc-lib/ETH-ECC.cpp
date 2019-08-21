@@ -38,12 +38,12 @@ eth_ecc(PyObject *self, PyObject *args){
   &previous_header, &previous_header_size, &current_header, &current_header_size, &difficulty_level, &wc, &wr))
       return 0;
 
-   if (current_header_size != 32) {
-         char error_message[1024];
-         sprintf(error_message, "Seed must be 32 bytes long (was %i)", current_header_size);
-         PyErr_SetString(PyExc_ValueError, error_message);
-         return 0;
-   }
+//   if (current_header_size != 32) {
+//         char error_message[1024];
+//         sprintf(error_message, "Seed must be 32 bytes long (was %i)", current_header_size);
+//         PyErr_SetString(PyExc_ValueError, error_message);
+//         return 0;
+//   }
 
     LDPC *ptr = new LDPC;
 
