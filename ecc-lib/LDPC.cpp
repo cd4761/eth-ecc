@@ -330,7 +330,7 @@ void LDPC::print_Q(const char name[], int type)
 
     fprintf(fp, "\n LRqt\n");
     for (int j = 0; j < this->n; j++)
-        fprintf(fp, "%d\t", this->LRqt[j] + 1);
+        fprintf(fp, "%d\t", this->LRft[j] + 1);
     fprintf(fp, "\n");
 
 	if (name)
